@@ -1,0 +1,21 @@
+{
+  "name": "base",
+  "description": "Base Server Role",
+  "default_attributes": {
+    "chef_client": {
+      "interval": 300,
+      "splay": 60,
+      "config": {
+        "ssl_verify_mode": ":verify_peer",
+        "log_level": ":info",
+        "data_collector.server_url": "https://my-automate-server.mycompany.com/data-collector/v0/",
+        "data_collector.token": "TOKEN"
+      }
+    }
+  },
+  "run_list": [
+    "recipe[chef-client::delete_validation]",
+    "recipe[chef-client::config]",
+    "recipe[chef-client]"
+  ]
+}

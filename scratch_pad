@@ -1,0 +1,43 @@
+cron job
+--Monthly
+--chef-client -o "recipe[patching]"
+
+#Normal Run (10 minutes - 1 day)
+chef-client
+Client > Server
+Server > Client (run_list)
+Server > Client (cookbooks, dependencies)
+Client runs
+Client > Server Run report/Failure report
+
+
+#Override run ( > 1 day)
+chef-client -o "recipe[patch]"
+client > server [Requests run_list role[patch]]
+server > client (run_list recipe[patch])
+
+if (day == 30)
+  include_recipe patching
+
+  Workflow
+  I do dodo doo oo make changes to webserver cookbook (rm -rf *)
+  knife cookbook upload webserver
+(10 minutes later)
+chef-client
+BOOM CRASH
+
+#Production Environment
+chef-client version = 3.4.2
+
+
+#Bootstrap
+workstation > node (client.rb, validation.pem)
+node > chef-server (uses validation.pem)
+chef-server > node (sends new client.pem)
+node > chef-server (client.pem)
+
+
+#New bootstrap
+Workstation > chef-server (generate client.pem)
+workstation > node (client.rb, client.pem)
+node > chef server (client.pem)

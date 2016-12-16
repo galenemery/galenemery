@@ -1,0 +1,6 @@
+{
+  "name": "admin",
+  "run_list": [
+    "recipe[zsh]"
+  ]
+}
